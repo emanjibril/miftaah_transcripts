@@ -9,12 +9,9 @@
         .horizontal {
             display: -webkit-box; /* wkhtmltopdf uses this one */
             display: flex;
-
             flex-direction: row;
-
             align-items: center;
             -webkit-box-align: center; /* WebKit */
-
             justify-content: space-between;
             -webkit-box-pack: justify;
         }
@@ -37,7 +34,6 @@
             width: 100%;
             align-items: end;    
             -webkit-box-pack: end;
-
             justify-content: right;
             -webkit-box-pack: right;
         }
@@ -168,10 +164,10 @@
     <!-- header at the top of the page with the logo -->
     <div class="horizontal">
         <div class="horizontal">
-            <img src="/app/images/logo.jpg" id="logo" alt="logo" width="140px", height="140px">
+            <img src="/app/images/logo.jpg" id="logo" alt="logo" width="140px" height="140px">
             <div class="vertical">
                 <h1>Miftaah Associate Program Transcript</h1> 
-                <h3>Date Issued: {{ today }}</h2>
+                <h3>Date Issued: {{ today }}</h3>
             </div>
         </div>
         
@@ -203,79 +199,109 @@
         </div>
     </div>
 
-    <!-- Grade Table for a semester -->
-    {% for period in periods %}
-    <div class="semester">
-        <div class="table_header">
-            <h2 class="year_title">{{period.name}}</h2>
-        </div>
-        <table class="classes_table">
-            <thead>
-                <tr>
-                    <th scope="col">Course</th>
-                    <th scope="col">Grade</th>
-                    <th scope="col">Credits</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for course in period.courses %}
-                <tr>
-                    <td>{{ course.name|e }}</td>
-                    <td>{{ course.grade }}</td>
-                    <td>{{ course.credits_str }}</td>
-                </tr>
-                {% endfor %}                
-            </tbody>
-        </table>
-        <div class="horizontal">
-            <div class="vertical credit_label">
-                <p>Total Credits</p>
-                <p>Cumulative Credits</p>
-            </div>
-            <div class="vertical credit_total">
-                <p>9.00</p>
-                <p>9.00</p>
-            </div>
-        </div>
+<!-- Grade Table for semesters, should show entire year -->
+{% for year in years %}
+<div class="semester">
+    <div class="table_header">
+        <h2 class="year_title">Fall {{ year.year }}</h2>
     </div>
-    {% endfor %}
-
-    <!-- credits info table -->
-    <table class="credits_table">
+    <table class="classes_table">
         <thead>
             <tr>
-                <th scope="col">Credits Required</th>
-                <th scope="col">Credits Completed</th>
-                <th scope="col">Credits Remaining</th>
+                <th scope="col">Course</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Credits</th>
             </tr>
         </thead>
         <tbody>
+            {% for period in year.fall_periods %}
             <tr>
-                <td>54.00</td>
-                <td>18.00</td>
-                <td>36.00</td>
+                <td>{{ period.name|e }}</td>
+                <td>{{ period.grade }}</td>
+                <td>{{ period.credits_str }}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
-        
-    <!-- Signature Section -->
-    <div class="horizontal sig_section">
-        <div class="sig_block vertical">
-            <div class="sig_line horizontal">
-                <p><b>SIGNATURE:</b></p>
-                <img class="signature" src="/app/images/maww_sig.jpg" alt="Mufti Abdul Wahab Waheed's Signature">
-            </div>
-            
-            <p>Mufti Abdul Wahab Waheed</p>
+    <div class="horizontal">
+        <div class="vertical credit_label">
+            <p>Total Credits</p>
         </div>
-        <div class="sig_block vertical">
-            <div class="sig_line horizontal">
-                <p><b>SIGNATURE:</b></p>
-                <img class="signature" src="/app/images/saw_sig.jpg" alt="Mufti Abdul Wahab Waheed's Signature">
-            </div>
-            
-            <p>Shaykh Abdullah Waheed</p>
+        <div class="vertical credit_total">
+            <p>{{ year.fall_total_credits }}</p>
         </div>
     </div>
-</body>
+</div>
 
+<div class="semester">
+    <div class="table_header">
+        <h2 class="year_title">Winter {{ year.year }}</h2>
+    </div>
+    <table class="classes_table">
+        <thead>
+            <tr>
+                <th scope="col">Course</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Credits</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for period in year.winter_periods %}
+            <tr>
+                <td>{{ period.name|e }}</td>
+                <td>{{ period.grade }}</td>
+                <td>{{ period.credits_str }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="horizontal">
+        <div class="vertical credit_label">
+            <p>Total Credits</p>
+        </div>
+        <div class="vertical credit_total">
+            <p>{{ year.winter_total_credits }}</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- credits info table -->
+<table class="credits_table">
+    <thead>
+        <tr>
+            <th scope="col">Credits Required</th>
+            <th scope="col">Credits Completed</th>
+            <th scope="col">Credits Remaining</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>56.00</td> <!-- Credits Required remains 56 -->
+            <td>{{ total_credits_earned }}</td> <!-- Credits Completed shows total_credits_earned -->
+            <td>{{ 56.00 - total_credits_earned }}</td> <!-- Credits Remaining is calculated -->
+        </tr>
+    </tbody>
+</table>
+
+<!-- Signature Section -->
+<div class="horizontal sig_section">
+    <div class="sig_block vertical">
+        <div class="sig_line horizontal">
+            <p><b>SIGNATURE:</b></p>
+            <img class="signature" src="/app/images/maww_sig.jpg" alt="Mufti Abdul Wahab Waheed's Signature">
+        </div>
+        
+        <p>Mufti Abdul Wahab Waheed</p>
+    </div>
+    <div class="sig_block vertical">
+        <div class="sig_line horizontal">
+            <p><b>SIGNATURE:</b></p>
+            <img class="signature" src="/app/images/saw_sig.jpg" alt="Mufti Abdul Wahab Waheed's Signature">
+        </div>
+        
+        <p>Shaykh Abdullah Waheed</p>
+    </div>
+</div>
+
+</body
