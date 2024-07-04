@@ -11,7 +11,8 @@ with open('template.html', 'r', encoding='utf-8') as file:
     html_template = file.read()
 
 print("HTML Template:")
-print(html_template)  # Print the template to inspect its content
+print(html_template)  
+
 
 # options = {
 #     'page-size': 'A4',
