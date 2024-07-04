@@ -6,54 +6,67 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 18px;
         }
+
         .horizontal {
-            display: -webkit-box; /* wkhtmltopdf uses this one */
+            display: -webkit-box;
+            /* wkhtmltopdf uses this one */
             display: flex;
 
             flex-direction: row;
 
             align-items: center;
-            -webkit-box-align: center; /* WebKit */
+            -webkit-box-align: center;
+            /* WebKit */
 
             justify-content: space-between;
             -webkit-box-pack: justify;
         }
+
         .vertical {
-            display: -webkit-box; /* wkhtmltopdf uses this one */
+            display: -webkit-box;
+            /* wkhtmltopdf uses this one */
             display: flex;
             flex-direction: column;
             -webkit-box-orient: vertical;
             justify-content: center;
             -ms-flex-pack: center;
         }
-        h1, h3 {
+
+        h1,
+        h3 {
             margin-bottom: 0px;
         }
+
         .title_right {
             text-align: right;
         }
+
         .right {
             /* margin-left: auto; */
             width: 100%;
-            align-items: end;    
+            align-items: end;
             -webkit-box-pack: end;
 
             justify-content: right;
             -webkit-box-pack: right;
         }
+
         .legend {
             text-align: right;
             text-align: -webkit-right;
         }
+
         #logo {
             margin-right: 12px;
             height: 140px;
             width: 140px;
         }
+
         p {
             margin-top: 8px;
             margin-bottom: 8px;
         }
+
         /* Classes Table */
 
         .classes_table {
@@ -62,6 +75,7 @@
             border-collapse: collapse;
             font-size: 18px;
         }
+
         .classes_table th {
             text-align: left;
             font-style: italic;
@@ -70,10 +84,12 @@
         .classes_table thead th:nth-child(1) {
             width: 80%;
         }
+
         .classes_table thead th:nth-child(2) {
             width: 10%;
             text-align: center;
         }
+
         .classes_table thead th:nth-child(3) {
             width: 10%;
             text-align: right;
@@ -83,12 +99,14 @@
             background-color: #cccccc;
         }
 
-        .classes_table th,td {
+        .classes_table th,
+        td {
             padding: 8px;
             text-align: left;
         }
+
         .classes_table td:last-child {
-           text-align: right;
+            text-align: right;
         }
 
         .classes_table td:nth-child(2) {
@@ -102,6 +120,7 @@
             border: 2px solid black;
             margin-top: 24px;
         }
+
         .year_title {
             color: #71140b;
             margin-top: 4px;
@@ -114,6 +133,7 @@
             text-align: right;
             margin-right: 12px;
         }
+
         .credit_total {
             margin-right: 8px;
         }
@@ -127,7 +147,8 @@
             text-align: center;
         }
 
-        .credits_table td, .credits_table th {
+        .credits_table td,
+        .credits_table th {
             text-align: center;
             padding-top: 8px;
             padding-bottom: 8px;
@@ -138,7 +159,7 @@
         .credits_table th {
             border: 1px solid #05224d;
         }
-        
+
         /* signature section */
         .signature {
             border-bottom: 2px solid black;
@@ -164,17 +185,18 @@
         }
     </style>
 </head>
+
 <body>
     <!-- header at the top of the page with the logo -->
     <div class="horizontal">
         <div class="horizontal">
-            <img src="/app/images/logo.jpg" id="logo" alt="logo" width="140px", height="140px">
+            <img src="../images/logo.jpg" id="logo" alt="logo" width="140px" , height="140px">
             <div class="vertical">
-                <h1>Miftaah Associate Program Transcript</h1> 
+                <h1>Miftaah Associate Program Transcript</h1>
                 <h3>Date Issued: {{ today }}</h2>
             </div>
         </div>
-        
+
     </div>
 
     <!-- Legend of grading acronyms on right side -->
@@ -224,7 +246,7 @@
                     <td>{{ course.grade }}</td>
                     <td>{{ course.credits_str }}</td>
                 </tr>
-                {% endfor %}                
+                {% endfor %}
             </tbody>
         </table>
         <div class="horizontal">
@@ -232,7 +254,7 @@
                 <p>Total Credits</p>
             </div>
             <div class="vertical credit_total">
-                <p>{{ credits_earned_str }}</p>
+                <p>{{total_credits_earned_str }}</p>
             </div>
         </div>
     </div>
@@ -250,12 +272,12 @@
         <tbody>
             <tr>
                 <td>56.00</td>
-                <td>{{ credits_earned_str }}</td>
-                <td>{{ 56.00 - credits_earned_str|float }}</td>
+                <td>{{ total_credits_earned_str }}</td>
+                <td>{{ 56.00 - total_credits_earned_str|float }}</td>
             </tr>
         </tbody>
     </table>
-        
+
     <!-- Signature Section -->
     <div class="horizontal sig_section">
         <div class="sig_block vertical">
@@ -264,7 +286,7 @@
                 <img class="signature" src="../images/maww_sig.jpg" alt="Mufti Abdul Wahab Waheed's Signature">
             </div>
 
-            
+
             <p>Mufti Abdul Wahab Waheed</p>
         </div>
         <div class="sig_block vertical">
@@ -272,7 +294,7 @@
                 <p><b>SIGNATURE:</b></p>
                 <img class="signature" src="../images/saw_sig.jpg" alt="Mufti Abdul Wahab Waheed's Signature">
             </div>
-            
+
             <p>Shaykh Abdullah Waheed</p>
         </div>
     </div>

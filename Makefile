@@ -1,5 +1,5 @@
 build:
-    docker buildx build --platform linux/amd64 -t musababdullah/miftaahtranscripts:latest .
+    docker buildx build --platform linux/amd64 -t emanjibril/miftaahtranscripts:latest .
 
 push:
-	docker push musababdullah/miftaahtranscripts
+	docker push emanjibril/miftaahtranscripts
